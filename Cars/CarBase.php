@@ -21,6 +21,19 @@ abstract class CarBase
     protected $carrying;
 
     /**
+     * CarBase constructor
+     *
+     * @param $carType
+     * @param $brand
+     * @param $photoFileName
+     * @param $carrying
+     */
+    public function __construct($carType, $brand, $photoFileName, $carrying)
+    {
+        $this->setCarType($carType)->setBrand($brand)->setPhotoFileName($photoFileName)->setCarrying($carrying);
+    }
+
+    /**
      * Get car type
      *
      * @return string
@@ -127,17 +140,4 @@ abstract class CarBase
         return '.' . $ext;
     }
 
-    /**
-     * @param array<string> $data
-     *
-     * @return static
-     */
-    public function setBaseCarInfo(array $data): CarBase
-    {
-        return $this
-            ->setCarType($data[0])
-            ->setBrand($data[1])
-            ->setPhotoFileName($data[3])
-            ->setCarrying((float) $data[5]);
-    }
 }

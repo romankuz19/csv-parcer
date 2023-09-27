@@ -25,14 +25,22 @@ function resolveCarByData(array $data): ?CarBase
 {
     switch ($data[0]) {
         case 'car':
-            return $data[2] != "" ? (new Car())->setBaseCarInfo($data)->setPassengerSeatsCount((int) $data[2]) : null;
+            if ($data[2] != "") {
+                return (new Car($data[0], $data[1], $data[3], (float) $data[5]))->setPassengerSeatsCount((int) $data[2]);
+            }
+            break;
         case 'truck':
-            return (new Truck())->setBaseCarInfo($data)->bodyWhlResolver($data[4]);
+            return (new Truck($data[0], $data[1], $data[3], (float) $data[5]))->bodyWhlResolver($data[4]);
         case 'spec_machine':
-            return $data[6] != "" ? (new SpecMachine())->setBaseCarInfo($data)->setExtra($data[6]) : null;
+            if ($data[6] != "") {
+                return (new SpecMachine($data[0], $data[1], $data[3], (float) $data[5]))->setExtra($data[6]);
+            }
+            break;
         default:
             return null;
     }
+
+    return null;
 }
 
 /**
